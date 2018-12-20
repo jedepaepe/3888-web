@@ -37,8 +37,8 @@ app.set('view engine', 'pug');
 
 // configure express stack (ajoute les middleware)
 app.use(logger('dev'));
-// renvoit le texte "hello world" au browser s'il fait un GET sur la racine du site
-app.get('/', function(req, res) {
+// renvoit le texte "hello world" au browser s'il fait un GET pour toute url
+app.get('/*', function(req, res) {
   res.send('hello world');
 });
 
