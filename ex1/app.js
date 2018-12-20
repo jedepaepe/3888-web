@@ -12,23 +12,16 @@ var createError = require('http-errors');
 // assigne cette référence à la variable "express"
 var express = require('express');
 
-// idem pour librairie "path"
-var path = require('path');
-
-// idem pour librairie "cookie-parser"
-var cookieParser = require('cookie-parser');
-
 // idem pour librairie "morgan"
 var logger = require('morgan');
-
-// 1.2 chargement du "librairies" locales
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // 2. la fonction express() construit un objet
 //    retourne la référence sur l'objet
 //    qui est sauvée dans la variable app
 var app = express();
+
+// idem pour librairie "path"
+var path = require('path');
 
 // 3. dire à app (l'application express) quel view-engine utiliser
 //    view = vue : c'est que voit le client/utilisateur
@@ -42,15 +35,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// configure express stack (ajoute les middleware)
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// renvoit le texte "hello world" au browser s'il fait un GET sur la racine du site
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
+// laisse le traitement des erreurs
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
