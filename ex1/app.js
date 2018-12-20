@@ -36,7 +36,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // configure express stack (ajoute les middleware)
+// on laisse le logger car il nous informe sur les requêtes effectuées (il écrit dans la console)
 app.use(logger('dev'));
+
 // renvoit le texte "hello world" au browser pour toutes les url et toutes les méthodes (GET | POST | PATCH | UPDATE | DELETE | ...)
 app.use(function(req, res) {
   res.send('hello world');
