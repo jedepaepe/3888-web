@@ -15,15 +15,8 @@ var express = require('express');
 // idem pour librairie "path"
 var path = require('path');
 
-// idem pour librairie "cookie-parser"
-var cookieParser = require('cookie-parser');
-
 // idem pour librairie "morgan"
 var logger = require('morgan');
-
-// 1.2 chargement du "librairies" locales
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // 2. la fonction express() construit un objet
 //    retourne la référence sur l'objet
@@ -43,13 +36,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(function(req, res) {
+  // affiche l'adresse IP dans la console
+  console.log('ip: ' + req.ip);
+
+  // initialise le début du message
+  var message = 'Hello ';
+
+  // si c'est le PC d'Alexis
+  // on utilise res.ip.includes() au lieu de res.ip === car req.ip contient un addresse version 6 
+  if(req.ip.includes('192.168.112.21')) message += 'Alexis';
+  // si c'est le PC de Javier
+  else if(req.ip.includes('192.168.112.25')) message += 'Javier';
+  else if(req.ip.includes('192.168.112.29')) message += 'Richard';
+  else if(req.ip.includes('192.168.112.20')) message += 'Jean-Michel';
+  else if(req.ip.includes('192.168.112.31')) message += 'Anne';
+  // si l'adresse est différente:
+  else message += 'you';
+  res.send(message);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
