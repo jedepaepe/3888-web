@@ -10,38 +10,9 @@ var app = express();
 app.use(logger('dev'));
 
 // API logger
-app.get("/random/:min/:max", function(req, res) {
-  var min = parseInt(req.params.min);
-  var max = parseInt(req.params.max);
-
-  if(isNaN(min) || isNaN(max)) {
-    res.status(400);
-    res.json({error: "Bad request"});
-    return;
-  }
-  
-  var result = Math.round(Math.random() * (max - min) + min);
-  res.json({result: result});
+app.get("/hello", function(req, res) {
+  res.send("hello");
 });
-
-// Math API
-app.get("/math/:exp", function(req, res) {
-  var exp = req.params.exp;
-  if(exp.includes('+')) {
-    var variables = exp.split('+');
-    variables = variables.map(v => parseFloat(v));
-    if(variables.find(v => isNaN(v))) {
-      res.status(400);
-      res.json({error: "Bad request"});
-      return;
-    }
-    var result = variables.reduce((sum, v) => sum + v);
-    res.json({
-      expression: exp,
-      result: result
-    });
-  }
-})
 
 // favicon https://stackoverflow.com/questions/15463199/how-to-set-custom-favicon-in-express
  //const fs = require('fs'); 
@@ -58,5 +29,5 @@ app.get("/math/:exp", function(req, res) {
 
   
 app.listen(3000, function() {
-  console.log("Random API app started");
+  console.log("Hello app started");
 });
