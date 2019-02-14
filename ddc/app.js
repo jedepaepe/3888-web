@@ -6,7 +6,7 @@ var app = express();
 var logger = require("morgan");
 app.use(logger('dev'));
 
-// charge la librairie Moment.js
+// charge la librairie Moment.js (gestion du temps)
 var moment = require('moment');
 
 // charge la librairie path (/\)
@@ -15,7 +15,7 @@ var path = require('path');
 // indique où se trouve les views
 app.set('views', path.join(__dirname, 'views'));
 
-// charge pug view engine
+// charge pug view engine (render)
 app.set('view engine', 'pug');
 
 // pour les paramètres
@@ -40,15 +40,17 @@ app.get("/favicon.ico", function(req, res) {
 
  // retourne le formulaire
 app.get("/ddc-form", function(req, res) {
-  res.render('ddc-form', {
+  var now = moment();
+  res.render('ddc-form.pug', {
     title: 'nvl DdC',
-    created: moment().format('YYYY-MM-DD'),
-    begin: moment().add(1, 'days').format('YYYY-MM-DD'),
-    start: moment().add(2, 'days').format('YYYY-MM-DD'),
+    created: now.format('YYYY-MM-DD'),
+    begin: now.add(1, 'days').format('YYYY-MM-DD'),
+    start: now.add(2, 'days').format('YYYY-MM-DD'),
     reasons: [
       'congé annuel',
-      'autre 1',
-      'autre 2'
+      'congé éducation',
+      'congé de paternité',
+      'congé de maternité'
     ]
   });
 });
