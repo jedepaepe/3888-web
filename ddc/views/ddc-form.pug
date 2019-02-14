@@ -1,35 +1,33 @@
 extends layout
 
 block content
-    .main.container
-        .row
-            .col-md-6.col-md-offset-3
-                h1.display-4.m-b-2 Demande de congés
-                form(action="ddc", method="post")
-                    .form-group
-                        label(for=created) Date création
-                        input#created.form-control(type='date', name='created' disabled='disabled' value=created)
-                    .form-group
-                        label(for=given) Nom
-                        input#given.form-control(type='text', name='given' placeholder='Durant')
-                    .form-group
-                        label(for=first) Prenom
-                        input#first.form-control(type='text', name='first' placeholder='Josephine')
-                    .form-group
-                        label(for=matricule) Matricule
-                        input#matricule.form-control(type='text', name='matricule' placeholder='A123')
-                    .form-group
-                        label(for=start) Début
-                        input#start.form-control(type='date', name='start' value=start)
-                    .form-group
-                        label(for=end) Fin
-                        input#end.form-control(type='date', name='end' value=end)
-                    .form-group
-                        label(for=reason) Raison
-                        select#reason
-                            each reason, index in reasons
-                                if ! index
-                                    option(value=index selected) #{reason}
-                                else
-                                    option(value=index) #{reason}
-                    button.btn.btn-primary(type='submit') Envoyer
+    div
+        h1 Demande de congés
+        form(action="ddc", method="post")
+            div
+                label(for=created) Date création
+                input#created(type='date', name='created' disabled='disabled' value=created)
+            div
+                label(for=given) Nom
+                input#given(type='text', name='given' placeholder='Durant')
+            div
+                label(for=first) Prenom
+                input#first(type='text', name='first' placeholder='Josephine')
+            div
+                label(for=matricule) Matricule
+                input#matricule(type='text', name='matricule' placeholder='A123')
+            div
+                label(for=start) Début
+                input#start(type='date', name='start' value=start)
+            div
+                label(for=end) Fin
+                input#end(type='date', name='end' value=end)
+            div
+                label(for=reason) Raison
+                select#reason
+                    each reason, index in reasons
+                        if ! index
+                            option(value=index selected) #{reason}
+                        else
+                            option(value=index) #{reason}
+            button.btn.btn-primary(type='submit') Envoyer

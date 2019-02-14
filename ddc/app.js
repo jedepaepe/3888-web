@@ -40,7 +40,7 @@ app.get("/favicon.ico", function(req, res) {
 
  // retourne la "home" page
 app.get("/", function(req, res) {
-  res.render('/', {title: 'DdC'})
+  res.render('index', {title: 'DdC'})
 })
 
  // retourne le formulaire
