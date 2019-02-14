@@ -43,27 +43,34 @@ app.get("/", function(req, res) {
   res.render('index', {title: 'DdC'})
 })
 
+function getReasons() {
+  // TODO
+  // allez chercher les raisons dans MongoDB
+  return [
+    'congé annuel',
+    'congé éducation',
+    'congé de paternité',
+    'congé de maternité'
+  ];
+}
+
  // retourne le formulaire
 app.get("/ddc-form", function(req, res) {
   var now = moment();
+  var reasons = getReasons();
   res.render('ddc-form.pug', {
     title: 'nvl DdC',
     created: now.format('YYYY-MM-DD'),
     begin: now.add(1, 'days').format('YYYY-MM-DD'),
     start: now.add(2, 'days').format('YYYY-MM-DD'),
-    reasons: [
-      'congé annuel',
-      'congé éducation',
-      'congé de paternité',
-      'congé de maternité'
-    ]
+    reasons: reasons
   });
 });
 
 // traite le formulaire
 app.post('/ddc', function(req, res) {
   console.log(JSON.stringify(req.body));
-  dbo.collection('ddc').insertOne(req.body, function(err, result) {
+  dbhr.collection('ddc').insertOne(req.body, function(err, result) {
     console.log('insertOne result: ' + JSON.stringify(result));
     if(err) {
       console.log(err);
@@ -75,8 +82,9 @@ app.post('/ddc', function(req, res) {
   });
 });
 
+// affiche la liste des demandes de congés
 app.get('/ddc', function(req, res) {
-  dbo.collection('ddc').find().toArray(function(err, result) {
+  dbhr.collection('ddc').find().toArray(function(err, result) {
     if(err) {
       console.log(err);
       res.status(500);
@@ -101,7 +109,7 @@ app.put('/ddc/:id', function(req, res) {
 });
 
 app.delete('/ddc/:id', function(req, res) {
-  dbo.collection('ddc').deleteOne({_id: new mongodb.ObjectId(req.params.id)}, function(err, result) {
+  dbhr.collection('ddc').deleteOne({_id: new mongodb.ObjectId(req.params.id)}, function(err, result) {
     if(err) {
       console.log(err);
       res.status(500);
@@ -114,15 +122,22 @@ app.delete('/ddc/:id', function(req, res) {
 });
 
 // charge MongoDB
-var dbo;
-var mongodb = require('mongodb');
-var MongoClient = mongodb.MongoClient;
+var dbhr;  // connexion à la DB hr de MongoDB
+var mongodb = require('mongodb');   // chargement de la librairie MongoDB
+var MongoClient = mongodb.MongoClient;  // driver client MongoDB
+// vous connectez la DB
 MongoClient.connect('mongodb://localhost:27017/', function(err, client) {
-  if(err) return console.log(err);
-  dbo = client.db('hr');
-    app.listen(3000, function() {
-      console.log(moment());
-      console.log("AppDdC démarré");
-    });
+  if(err) {
+    console.log(err);
+    return;
+  }
+  dbhr = client.db('hr');
+  app.listen(3000, function() {
+    console.log(moment());
+    console.log("AppDdC démarré");
+  });
 });
+
+
+
 
