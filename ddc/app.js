@@ -38,6 +38,11 @@ app.get("/favicon.ico", function(req, res) {
   res.end(favicon);
  });
 
+ // retourne la "home" page
+app.get("/", function(req, res) {
+  res.render('/', {title: 'DdC'})
+})
+
  // retourne le formulaire
 app.get("/ddc-form", function(req, res) {
   res.render('ddc-form', {
