@@ -156,8 +156,8 @@ app.delete('/ddc/:id', function(req, res) {
 
 
 // charge MongoDB
-const dbhr;  // connexion à la DB hr de MongoDB
-const mongodb = require('mongodb');   // chargement de la librairie MongoDB
+var dbhr;  // connexion à la DB hr de MongoDB
+var mongodb = require('mongodb');   // chargement de la librairie MongoDB
 // vous connectez la DB
 mongodb.MongoClient.connect('mongodb://localhost:27017/', function(err, client) {
   if(err) {
