@@ -1,0 +1,17 @@
+{
+  "name": "ex1",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app",
+    "devstart": "nodemon ./app"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-fileupload": "^1.1.1-alpha.3",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.10",
+    "pug": "2.0.0-beta11"
+  }
+}

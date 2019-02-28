@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    div
+        form(action="contact" method="POST"  encType="multipart/form-data")
+            ul.form-style-1
+                li
+                    label Full Name
+                        span.required *
+                    input.field-long(type="email" name="email")
+                li
+                    label Subject
+                    select.field-select(name="subject")
+                        option(value="Advertise") Advertise
+                        option(value="Partnership") Partnership
+                        option(value="General Question") General Question
+                li
+                    label Your message
+                        <span.required> *
+                    textarea.field-long.field-textarea(name="message")
+                li
+                    label Your file
+                    input(type="file" name="file")
+                li
+                    input(type="submit" value="submit")
