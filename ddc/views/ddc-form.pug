@@ -24,7 +24,7 @@ block content
                 input#end(type='date', name='end' value=end)
             div
                 label(for=reason) Raison
-                select#reason
+                select#reason(name='reason')
                     each reason, index in reasons
                         if ! index
                             option(value=index selected) #{reason}
