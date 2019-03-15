@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>ddc-list</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+          table {border-collapse: collapse;}
+          table, th, td {border: 1px solid black; padding: 0.5em}
+        </style>
+      </head>
+
+      <body>
+        <div id="app">
+          <table>
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Statut</th>
+                <th>Raison</th>
+              </tr>
+            </thead>
+            <tr v-for="ddc in ddcs">
+              <td>{{ddc.matricule}}</td>
+              <td>{{ddc.prenom}} {{ddc.nom}}</td>
+              <td>{{ddc.debut}}</td>
+              <td>{{ddc.fin}}</td>
+              <td>{{ddc.statut}}</td>
+              <td>{{ddc.raison}}</td>
+            </tr>
+          </table>
+        </div>
+        <script>
+          var app = new Vue({
+            el: "#app",
+            data: {
+              ddcs: [
+                {
+                  matricule: "A018",
+                  prenom: "Laurent",
+                  nom: "Le Roi",
+                  debut: "2019-01-01",
+                  fin: "2019-12-31",
+                  statut: "demande",
+                  raison: "congé annuel"
+                },
+                {
+                  matricule: "A016",
+                  prenom: "Philippe",
+                  nom: "Le Roi",
+                  debut: "2019-04-01",
+                  fin: "2019-04-01",
+                  statut: "demande",
+                  raison: "congé paternité"
+                }
+              ]
+            }
+          });
+        </script>
+      </body>
+    </html>
+  </head>
+</html>

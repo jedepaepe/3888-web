@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>ddc-form</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      </head>
+
+      <body>
+        <div id="app">
+          <div>
+            <label>Matricule</label>
+            <input v-model="ddc.matricule" />
+          </div>
+          <div>
+            <label>Prénom</label>
+            <input v-model="ddc.prenom" />
+          </div>
+          <div>
+            <label>Nom</label>
+            <input v-model="ddc.nom" />
+          </div>
+          <div>
+            <label>Début du congé</label>
+            <input type=date v-model="ddc.debut" />
+          </div>
+          <div>
+            <label>Fin du congé</label>
+            <input type=date v-model="ddc.fin" />
+          </div>
+          <div>
+            <label>Statut</label>
+            <select>
+                <option v-for="statut in statuts" v-bind:value="statut" v-bind:selected="statut == ddc.statut">{{statut}}</option>
+            </select>
+          </div>
+          <div>
+            <label>Raison</label>
+            <select>
+                <option v-for="raison in raisons" v-bind:value="raison" v-bind:selected="raison == ddc.raison">{{raison}}</option>
+            </select>
+          </div>
+        </div>
+        <script>
+          var app = new Vue({
+            el: "#app",
+            data: {
+              ddc: {
+                matricule: "A018",
+                prenom: "Laurent",
+                nom: "Le Roi",
+                debut: "2019-01-01",
+                fin: "2019-12-31",
+                statut: "approuvée",
+                raison: "congé éducation"
+              },
+              statuts: [
+                  'demandée',
+                  'approuvée-manager',
+                  'approuvée'
+              ],
+              raisons: [
+                  'congé annuel',
+                  'congé éducation',
+                  'congé de maternité',
+                  'congé de parternité'
+              ]
+            }
+          });
+        </script>
+      </body>
+    </html>
+  </head>
+</html>
